@@ -18,6 +18,7 @@ const config = {
   organizationName: 'amnaMahmoodObs',
   projectName: 'robotics-book',
 
+
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
