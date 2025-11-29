@@ -90,14 +90,26 @@ const config = {
         },
         items: [
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
+            type: 'doc',
+            docId: 'chapter-1-introduction',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Chapter 1: Introduction',
+          },
+          {
+            type: 'doc',
+            docId: 'chapter-2-ros2',
+            position: 'left',
+            label: 'Chapter 2: ROS 2',
+          },
+          {
+            type: 'doc',
+            docId: 'chapter-3-digital-twin',
+            position: 'left',
+            label: 'Chapter 3: Digital Twin',
           },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/amnaMahmoodObs/robotics-book',
             label: 'GitHub',
             position: 'right',
           },
