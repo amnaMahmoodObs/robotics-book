@@ -1,0 +1,1 @@
+"use strict";(globalThis.webpackChunkfront_end=globalThis.webpackChunkfront_end||[]).push([[945],{2271:o=>{o.exports=JSON.parse('{"metadata":{"permalink":"/robotics-book/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":4,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);
