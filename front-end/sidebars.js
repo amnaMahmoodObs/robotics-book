@@ -22,6 +22,11 @@ const sidebars = {
       label: 'Robotics Book',
       items: ['chapter-1-introduction', 'chapter-2-ros2', 'chapter-3-digital-twin'],
     },
+    {
+      type: 'category',
+      label: 'Additional Resources',
+      items: ['rag-chat-widget'],
+    },
   ],
 
   // But you can create a sidebar manually

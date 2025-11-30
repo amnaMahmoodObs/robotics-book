@@ -52,6 +52,16 @@ const config = {
     ],
   ],
 
+  scripts: [
+    {
+      src: '/js/rag_chat_widget.js',
+      async: true,
+      defer: true,
+    },
+  ],
+  clientModules: [
+    require.resolve('./src/clientModules/rag-widget-init.js'),
+  ],
   themeConfig: {
     image: 'img/docusaurus-social-card.jpg',
     colorMode: {

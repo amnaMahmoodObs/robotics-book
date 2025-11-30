@@ -10,7 +10,7 @@ Imagine a robot arm carefully picking up a delicate object, or a self-driving ca
 
 The core idea of Physical AI involves three main components working together:
 
--   **Perception:** How the AI \"sees\" and \"understand\" its surroundings. This involves sensors like cameras (for vision), microphones (for sound), and touch sensors (for tactile feedback).
+-   **Perception:** How the AI \"sees\" and \"understands\" its surroundings. This involves sensors like cameras (for vision), microphones (for sound), and touch sensors (for tactile feedback).
 -   **Decision-Making:** The \"brain\" of the AI, where it processes information from its sensors and decides what action to take. This often involves complex algorithms and machine learning models.
 -   **Actuation:** How the AI physically performs an action. This includes motors, gears, and robotic limbs that allow it to move, grasp, or manipulate objects.
 
