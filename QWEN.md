@@ -1,4 +1,4 @@
-# Claude Code Rules
+# Qwen Code Rules
 
 This file is generated during init for the selected agent.
 
@@ -208,10 +208,3 @@ Wait for consent; never auto-create ADRs. Group related decisions (stacks, authe
 
 ## Code Standards
 See `.specify/memory/constitution.md` for code quality, testing, performance, security, and architecture principles.
-
-## Active Technologies
-- Python 3.9+ + FastAPI, python-dotenv, qdrant-client, openai (001-rag-backend-init)
-- Qdrant (for vector embeddings) (001-rag-backend-init)
-
-## Recent Changes
-- 001-rag-backend-init: Added Python 3.9+ + FastAPI, python-dotenv, qdrant-client, openai

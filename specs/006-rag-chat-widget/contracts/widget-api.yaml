@@ -1,0 +1,132 @@
+openapi: 3.0.0
+info:
+  title: RAG Chat Widget API
+  description: API for communication between the chat widget and RAG backend
+  version: 1.0.0
+
+paths:
+  /ask:
+    post:
+      summary: Submit a query from the chat widget
+      description: Submit a user query from the widget to the RAG system
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WidgetQueryRequest'
+      responses:
+        '200':
+          description: Successful response with answer and sources
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WidgetQueryResponse'
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    WidgetQueryRequest:
+      type: object
+      properties:
+        query:
+          type: string
+          description: The user's question
+          example: "What is ROS 2 and how does it work?"
+        selectedText:
+          type: string
+          description: Text selected by the user when asking the question
+          example: "ROS 2 is a set of software libraries and tools that help developers create robotic applications."
+        context:
+          type: string
+          description: Additional context related to the question
+          example: "Chapter 2, Section 3 - ROS 2 Fundamentals"
+        pageUrl:
+          type: string
+          description: URL of the page where the question was asked
+          example: "https://robotics-book.github.io/docs/ros2-introduction"
+        top_k:
+          type: integer
+          description: Number of results to retrieve (default 5)
+          default: 5
+          minimum: 1
+          maximum: 20
+      required:
+        - query
+
+    WidgetQueryResponse:
+      type: object
+      properties:
+        query:
+          type: string
+          description: The original user query
+        answer:
+          type: string
+          description: The generated answer based on retrieved context
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Source'
+        retrievedChunks:
+          type: array
+          items:
+            $ref: '#/components/schemas/RetrievedChunk'
+        contextLength:
+          type: integer
+          description: Length of the context used for generation
+        sessionId:
+          type: string
+          description: Unique identifier for the chat session
+
+    RetrievedChunk:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the chunk
+        text:
+          type: string
+          description: The text content of the chunk (first 200 chars)
+          example: "ROS 2 is a set of software libraries and tools that help developers..."
+        sourceFile:
+          type: string
+          description: The source document
+        score:
+          type: number
+          format: float
+          description: Relevance score from semantic search
+
+    Source:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the source
+        file:
+          type: string
+          description: Source file name
+        relevance:
+          type: number
+          format: float
+          description: Relevance score
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Error message
+        code:
+          type: string
+          description: Error code

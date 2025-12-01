@@ -18,3 +18,23 @@ front-end/node_modules/
 # OS-specific
 .DS_Store
 Thumbs.db
+
+# Additional Python ignores
+.venv/
+dist/
+*.egg-info/
+
+# Temp files
+*.tmp
+*.swp
+
+# IDE-specific ignores
+.vscode/
+.idea/
+
+# Environment variables
+.env
+.env*
+
+# Temporary deployment directory
+deployment/
