@@ -128,7 +128,7 @@ const Chatbot = () => {
       {isOpen && (
         <div className="chatbot-window">
           <div className="chat-header">
-            <h3>BookRAG Chatbot</h3>
+            <h3>Book Assistant</h3>
           </div>
           <div className="chat-messages">
             {messages.map((msg, index) => (

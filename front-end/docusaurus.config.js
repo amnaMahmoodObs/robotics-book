@@ -54,7 +54,7 @@ const config = {
 
   scripts: [
     {
-      src: '/js/rag_chat_widget.js',
+      src: '/robotics-book/js/rag_chat_widget.js',
       async: true,
       defer: true,
     },

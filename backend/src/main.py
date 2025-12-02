@@ -16,7 +16,10 @@ app = FastAPI(title="Robotics Book RAG API", version="1.0.0")
 # Add CORS middleware to allow requests from the frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, replace with specific origins
+    allow_origins=[
+        "https://amnaMahmoodObs.github.io",
+        "https://amnaMahmoodObs.github.io/robotics-book",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
