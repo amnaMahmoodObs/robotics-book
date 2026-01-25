@@ -12,32 +12,17 @@ from rag_ingestion.repo_loader import load_markdown
 
 class QdrantVectorStore:
     def __init__(self):
-        import urllib.parse
-        qdrant_host = os.environ.get("QDRANT_HOST")
+        # Use QDRANT_URL to match backend configuration
+        qdrant_url = os.environ.get("QDRANT_URL")
         qdrant_api_key = os.environ.get("QDRANT_API_KEY")
-        
-        # Parse the URL to extract host and port for cloud instances
-        if qdrant_host and qdrant_host.startswith("https://"):
-            parsed_url = urllib.parse.urlparse(qdrant_host)
-            # Extract host and port for cloud
-            host = parsed_url.hostname
-            port = parsed_url.port or 443  # Use 443 for HTTPS if no explicit port
-            
-            self.client = QdrantClient(
-                host=host,
-                port=port,
-                https=True,  # Enable HTTPS for cloud
-                api_key=qdrant_api_key,
-                timeout=60,
-            )
-        else:
-            # Use host for local instances
-            self.client = QdrantClient(
-                host=qdrant_host,
-                api_key=qdrant_api_key,
-                timeout=60,
-            )
-        self.collection_name = "book_chunks"
+
+        # Use simple URL connection (same as backend)
+        self.client = QdrantClient(
+            url=qdrant_url,
+            api_key=qdrant_api_key,
+            timeout=60,
+        )
+        self.collection_name = os.environ.get("QDRANT_COLLECTION_NAME", "book_chunks")
 
     def create_collection(self):
         """Recreate the collection with named vector 'embedding'."""
