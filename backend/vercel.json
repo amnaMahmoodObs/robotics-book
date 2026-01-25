@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/main.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "src/main.py"
+    }
+  ],
+  "env": {
+    "OPENAI_API_KEY": "@openai_api_key",
+    "QDRANT_URL": "@qdrant_url",
+    "QDRANT_HOST": "@qdrant_host",
+    "QDRANT_API_KEY": "@qdrant_api_key",
+    "QDRANT_COLLECTION_NAME": "@qdrant_collection_name"
+  }
+}

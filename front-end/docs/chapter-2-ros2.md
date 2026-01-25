@@ -1,4 +1,4 @@
-Chapter 2: The Robotic Nervous System (ROS 2)
+# Chapter 2: The Robotic Nervous System (ROS 2)
 
 ## 1. Introduction to ROS 2
 

@@ -70,8 +70,8 @@ const config = {
     navbar: {
       title: 'Robotics Book',
       logo: {
-        alt: 'Book Logo',
-        src: 'img/logo.svg',
+        alt: 'Robotics Book Logo',
+        src: 'img/robot.png',
       },
       items: [
         {
@@ -92,7 +92,12 @@ const config = {
           position: 'left',
           label: 'Chapter 3: Digital Twin',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
+        {
+          type: 'doc',
+          docId: 'module-4-vla',
+          position: 'left',
+          label: 'Module 4: VLA',
+        },
         {
           href: 'https://github.com/amnaMahmoodObs/robotics-book',
           label: 'GitHub',

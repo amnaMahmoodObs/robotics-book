@@ -160,12 +160,12 @@ class RagChatWidget {
   async callBackend(query, selectedText = '') {
     const requestBody = {
       query: query,
-      selectedText: selectedText,
+      selected_text: selectedText,
       context: window.location.href,
       top_k: 5
     };
-    
-    const response = await fetch(`${this.config.backendUrl}/ask`, {
+
+    const response = await fetch(`${this.config.backendUrl}/query`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

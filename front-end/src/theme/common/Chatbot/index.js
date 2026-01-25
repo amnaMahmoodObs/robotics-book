@@ -8,6 +8,7 @@ const Chatbot = () => {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [backendUrl, setBackendUrl] = useState('http://localhost:8000'); // Default or fallback URL
+  const [selectedText, setSelectedText] = useState(''); // Track selected text
 
 
   // Function to get selected text from the document
@@ -15,6 +16,29 @@ const Chatbot = () => {
     const selection = window.getSelection();
     return selection.toString().trim();
   };
+
+  // Update selected text whenever user makes a selection
+  useEffect(() => {
+    const handleSelectionChange = () => {
+      const text = getSelectedText();
+      // Only update if there's new text selected, don't clear on deselection
+      if (text && text.length > 0) {
+        setSelectedText(text);
+      }
+    };
+
+    // Listen for selection changes globally, not just when open
+    document.addEventListener('selectionchange', handleSelectionChange);
+
+    // Check immediately when chatbot opens
+    if (isOpen) {
+      handleSelectionChange();
+    }
+
+    return () => {
+      document.removeEventListener('selectionchange', handleSelectionChange);
+    };
+  }, [isOpen]);
 
   useEffect(() => {
     if (typeof window !== 'undefined' && window.initRagChatWidget && window.initRagChatWidget.config && window.initRagChatWidget.config.backendUrl) {
@@ -53,67 +77,32 @@ const Chatbot = () => {
 
   const handleSendMessage = async () => {
     if (input.trim()) {
+      const currentInput = input;
+      const currentSelectedText = selectedText;
+
       // Add user message to the chat
+      let displayText = currentInput;
+      if (currentSelectedText) {
+        displayText = `${currentInput}\n[Context: "${currentSelectedText.substring(0, 100)}${currentSelectedText.length > 100 ? '...' : ''}"]`;
+      }
+
       const userMessage = {
         type: 'user',
-        text: input,
+        text: displayText,
         timestamp: new Date().toLocaleTimeString()
       };
 
       setMessages(prevMessages => [...prevMessages, userMessage]);
-      const currentInput = input;
       setInput(''); // Clear input immediately after sending
 
-      // Send query to backend
-      await sendQueryToBackend(currentInput);
+      // Send query to backend with selected text as context
+      await sendQueryToBackend(currentInput, currentSelectedText || null);
+
+      // Clear selected text after sending
+      setSelectedText('');
     }
   };
 
-  const handleSendSelectedText = async () => {
-    const selectedText = getSelectedText();
-
-    if (!selectedText) {
-      setMessages(prevMessages => [
-        ...prevMessages,
-        {
-          type: 'bot',
-          text: 'Please select some text on the page first.',
-          isError: true
-        }
-      ]);
-      return;
-    }
-
-    // Add user message indicating selected text query
-    const userMessage = {
-      type: 'user',
-      text: `Query with selected text: "${selectedText.substring(0, 50)}${selectedText.length > 50 ? '...' : ''}"`,
-      timestamp: new Date().toLocaleTimeString()
-    };
-
-    setMessages(prevMessages => [...prevMessages, userMessage]);
-
-    // Send selected text as query to backend
-    await sendQueryToBackend(selectedText);
-  };
-
-  // Add keyboard shortcut for sending selected text (Ctrl/Cmd + Enter)
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      // Check if Ctrl/Cmd+Enter is pressed
-      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter' && isOpen && getSelectedText()) {
-        handleSendSelectedText();
-      }
-    };
-
-    if (isOpen) {
-      window.addEventListener('keydown', handleKeyDown);
-    }
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isOpen]);
 
   return (
     <div className="chatbot-container">
@@ -153,31 +142,39 @@ const Chatbot = () => {
               </div>
             )}
           </div>
+          {selectedText && (
+            <div className="selected-text-indicator">
+              <div className="selected-text-header">
+                <span className="selected-text-label">📄 Selected Text (will be used as context):</span>
+                <button
+                  className="clear-selection-button"
+                  onClick={() => setSelectedText('')}
+                  title="Clear selected text"
+                >
+                  ✕
+                </button>
+              </div>
+              <div className="selected-text-preview">
+                "{selectedText.substring(0, 150)}{selectedText.length > 150 ? '...' : ''}"
+              </div>
+            </div>
+          )}
           <div className="chat-input-area">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-              placeholder="Ask a question about robotics..."
+              onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
+              placeholder={selectedText ? "Ask a question about the selected text..." : "Ask a question about robotics..."}
               className="chat-input"
             />
             <button
               onClick={handleSendMessage}
               className="send-button"
               disabled={!input.trim() || isLoading}
+              title={selectedText ? "Send question with selected text as context" : "Send question"}
             >
-              Send
-            </button>
-          </div>
-          <div className="chat-controls">
-            <button
-              onClick={handleSendSelectedText}
-              className="selected-text-button"
-              disabled={!getSelectedText() || isLoading}
-              title="Send selected text as query (Ctrl/Cmd + Enter)"
-            >
-              Query with selected text
+              {selectedText ? '📤 Send with Context' : 'Send'}
             </button>
           </div>
         </div>
