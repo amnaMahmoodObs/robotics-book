@@ -23,7 +23,7 @@ app.add_middleware(
         "https://amnamahmoodobs.github.io",
         "https://amnaMahmoodObs.github.io/robotics-book",
         "https://amnamahmoodobs.github.io/robotics-book",
-        "https://robotics-book-4n8vdgvsn-amna-mahmoods-projects.vercel.app",
+        "https://robotics-book-mu.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
