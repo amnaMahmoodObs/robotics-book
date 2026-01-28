@@ -3,8 +3,8 @@ from typing import Union
 import os
 from qdrant_client import QdrantClient
 from langchain_openai import ChatOpenAI
-from rag_ingestion.embeddings import embed_chunks
-from backend.src.config.settings import settings
+from src.utils.embeddings import embed_chunks
+from src.config.settings import settings
 
 class BookRAGAgent:
     def __init__(self, model_name: str, qdrant_client: QdrantClient = None, llm_client: ChatOpenAI = None, collection_name: str = None):
