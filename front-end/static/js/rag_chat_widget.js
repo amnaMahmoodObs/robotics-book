@@ -5,7 +5,7 @@ class RagChatWidget {
       position: config.position || 'bottom-right',
       title: config.title || 'Robotics Knowledge Assistant',
       initialMessage: config.initialMessage || 'Ask me anything about robotics!',
-      backendUrl: config.backendUrl || 'http://localhost:8000',
+      backendUrl: config.backendUrl || 'https://robotics-book-mu.vercel.app',
       welcomeMessage: config.welcomeMessage || 'Hello! Ask me anything about robotics concepts.',
       ...config
     };

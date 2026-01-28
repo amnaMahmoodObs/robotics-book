@@ -7,7 +7,7 @@ const Chatbot = () => {
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [backendUrl, setBackendUrl] = useState('http://localhost:8000'); // Default or fallback URL
+  const [backendUrl, setBackendUrl] = useState('https://robotics-book-mu.vercel.app'); // Default or fallback URL
   const [selectedText, setSelectedText] = useState(''); // Track selected text
 
 

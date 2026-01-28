@@ -9,7 +9,7 @@
  * @returns {Promise<Object>} The response from the backend
  */
 export const queryRAGBackend = async (query, backendUrl, selectedText = null) => {
-  const API_BASE_URL = backendUrl || 'http://localhost:8000';
+  const API_BASE_URL = backendUrl || 'https://robotics-book-mu.vercel.app';
   try {
     // Construct the payload
     const payload = {
@@ -42,7 +42,7 @@ export const queryRAGBackend = async (query, backendUrl, selectedText = null) =>
  * @returns {Promise<Object>} The health check response
  */
 export const checkHealth = async (backendUrl) => {
-  const API_BASE_URL = backendUrl || 'http://localhost:8000';
+  const API_BASE_URL = backendUrl || 'https://robotics-book-mu.vercel.app';
   try {
     const response = await fetch(`${API_BASE_URL}/health`);
     
