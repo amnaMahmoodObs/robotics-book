@@ -4,8 +4,8 @@ from pydantic import BaseModel
 from typing import Optional, Dict, Any
 import logging
 
-from backend.src.config.settings import settings
-from backend.src.rag_modules.book_rag_agent import BookRAGAgent
+from src.config.settings import settings
+from src.rag_modules.book_rag_agent import BookRAGAgent
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -21,7 +21,7 @@ app.add_middleware(
         "http://127.0.0.1:3000",
         "https://amnaMahmoodObs.github.io",
         "https://amnamahmoodobs.github.io",
-        "https://robotics-book-amna-mahmoods-projects.vercel.app",
+        "https://robotics-book-mu.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
